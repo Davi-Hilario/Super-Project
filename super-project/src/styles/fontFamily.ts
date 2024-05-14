@@ -1,5 +1,5 @@
 export const fontFamily = {
-	// regular: require("../assets/fonts/RadioCanadaBig-Regular.ttf"),
-	// medium: require("../assets/fonts/RadioCanadaBig-Medium.ttf"),
-	// bold: require("../assets/fonts/RadioCanadaBig-Bold.ttf"),
+	regular: "RadioCanadaBig_400Regular",
+	medium: "RadioCanadaBig_500Medium",
+	bold: "RadioCanadaBig_700Bold",
 };

@@ -1,9 +1,10 @@
 import { Text, View } from "react-native";
+import styles from "./index.style";
 
 function Home() {
 	return (
-		<View className='items-center justify-center flex-1 bg-white-200'>
-			<Text className='text-3xl'>Hello World!</Text>
+		<View style={styles.Home}>
+			<Text style={styles.text}>Hello World!</Text>
 		</View>
 	);
 }
