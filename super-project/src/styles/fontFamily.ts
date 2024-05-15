@@ -1,5 +1,5 @@
 export const fontFamily = {
-	regular: "RadioCanadaBig_400Regular",
-	medium: "RadioCanadaBig_500Medium",
-	bold: "RadioCanadaBig_700Bold",
+	canadaRegular: "RadioCanadaBig_400Regular",
+	canadaMedium: "RadioCanadaBig_500Medium",
+	canadaBold: "RadioCanadaBig_700Bold",
 };
