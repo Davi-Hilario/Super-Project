@@ -1,12 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import styles from "./SideBar.style";
+import styles from "./NavBar.style";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { DATA } from "./utils";
 import { ItemData } from "@/src/types/types";
 import { colors } from "@/src/styles/colors";
 import { useState } from "react";
+import { useNavigation } from "expo-router";
 
-function Navbar() {
+function Navbar({ selectedId }: { selectedId: number }) {
 	let [active, setActive] = useState(false);
 
 	return (
@@ -23,13 +24,19 @@ function Navbar() {
 					onPress={() => setActive(!active)}
 				/>
 			</View>
-			<SideBar active={active} />
+			<SideBar active={active} selectedId={selectedId} />
 		</View>
 	);
 }
 
-function SideBar({ active }: { active: boolean }) {
-	let [selectedId, setSelectedId] = useState<number>();
+function SideBar({
+	active,
+	selectedId,
+}: {
+	active: boolean;
+	selectedId: number;
+}) {
+	let navigation = useNavigation<any>();
 
 	const Item = ({
 		item,
@@ -44,7 +51,7 @@ function SideBar({ active }: { active: boolean }) {
 	}) => (
 		<TouchableOpacity
 			style={[styles.item, { backgroundColor: backgroundColor }]}
-			onPress={() => setSelectedId(item.id)}
+			onPress={() => navigation.navigate(item.navigationUrl)}
 		>
 			<Text style={{ color: foregroundColor }}>{item.title}</Text>
 			<MaterialIcons name={icon} size={30} color={foregroundColor} />

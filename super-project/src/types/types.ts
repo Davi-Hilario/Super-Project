@@ -4,5 +4,5 @@ export type ItemData = {
 	icon: any;
 	backgroundColor: string;
 	foregroundColor: string;
-	onClick: () => void;
+	navigationUrl: string;
 };

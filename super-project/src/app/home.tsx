@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
 import styles from "./css/home.style";
-import Navbar from "../components/sidebar/SideBar";
+import Navbar from "../components/navbar/NavBar";
 
 function Home() {
 	return (
 		<View style={styles.Home}>
-			<Navbar />
+			<Navbar selectedId={1} />
 			<View>
 				<Text>Teste</Text>
 			</View>

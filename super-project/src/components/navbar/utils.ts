@@ -1,4 +1,5 @@
 import { colors } from "@/src/styles/colors";
+import Utils from "@/src/utils/Utils";
 
 export const DATA = [
 	{
@@ -7,7 +8,7 @@ export const DATA = [
 		icon: "home",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		onClick: () => {},
+		navigationUrl: Utils.screenNames.LOGIN,
 	},
 	{
 		id: 2,
@@ -15,7 +16,7 @@ export const DATA = [
 		icon: "person",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		onClick: () => {},
+		navigationUrl: Utils.screenNames.LOGIN,
 	},
 	{
 		id: 3,
@@ -23,7 +24,7 @@ export const DATA = [
 		icon: "settings",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		onClick: () => {},
+		navigationUrl: Utils.screenNames.LOGIN,
 	},
 	{
 		id: 4,
@@ -31,7 +32,7 @@ export const DATA = [
 		icon: "inventory",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		onClick: () => {},
+		navigationUrl: Utils.screenNames.LOGIN,
 	},
 	{
 		id: 5,
@@ -39,6 +40,6 @@ export const DATA = [
 		icon: "manage-accounts",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		onClick: () => {},
+		navigationUrl: Utils.screenNames.LOGIN,
 	},
 ];
