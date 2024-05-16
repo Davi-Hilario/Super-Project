@@ -19,8 +19,9 @@ function Home() {
 				"Fill all the required fields to proceed!"
 			);
 		}
+
 		console.log("Signed In sucessfully!");
-		navigation.navigate(Utils.screenNames.REGISTER);
+		navigation.navigate(Utils.screenNames.HOME);
 	}
 
 	return (
