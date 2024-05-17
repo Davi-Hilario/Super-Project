@@ -20,7 +20,7 @@ function Home() {
 			);
 		}
 
-		fetch("http://localhost:8080/users/login", {
+		fetch("http://localhost:8080/users/login-admin", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -33,8 +33,10 @@ function Home() {
 			.then((response) => {
 				if (response.ok) {
 					response.json().then((json) => {
-						Alert.alert("Login", "Signed In sucessfully!");
-						navigation.navigate(Utils.screenNames.HOME);
+						if (json.role === 1) {
+							Alert.alert("Login", "Signed In sucessfully!");
+							navigation.navigate(Utils.screenNames.HOME);
+						}
 					});
 				} else {
 					response.text().then((text) => {
@@ -43,7 +45,7 @@ function Home() {
 				}
 			})
 			.catch((error) => {
-				console.warn("Error while trying to login: " + error);
+				Alert.alert("Server Error", `Error while trying to login: ${error}`);
 			});
 	}
 

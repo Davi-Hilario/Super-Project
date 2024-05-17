@@ -6,3 +6,11 @@ export type ItemData = {
 	foregroundColor: string;
 	navigationUrl: string;
 };
+
+export type ProductData = {
+	id?: number;
+	name?: string;
+	description?: string;
+	price?: number;
+	image?: string;
+};
