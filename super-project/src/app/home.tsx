@@ -6,7 +6,7 @@ function Home() {
 	return (
 		<View style={styles.Home}>
 			<Navbar selectedId={1} />
-			<View>
+			<View style={styles.container}>
 				<Text>Teste</Text>
 			</View>
 		</View>

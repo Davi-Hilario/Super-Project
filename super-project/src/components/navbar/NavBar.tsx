@@ -11,16 +11,11 @@ function Navbar({ selectedId }: { selectedId: number }) {
 	let [active, setActive] = useState(false);
 
 	return (
-		<View>
+		<View style={styles.Layout}>
 			<View style={styles.Navbar}>
-				<Image
-					source={{ uri: "https://img.logoipsum.com/243.svg" }}
-					style={styles.logoImg}
-				/>
 				<MaterialIcons
 					name='menu'
 					size={30}
-					color={colors.white[200]}
 					onPress={() => setActive(!active)}
 				/>
 			</View>

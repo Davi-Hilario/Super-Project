@@ -4,9 +4,15 @@ import { StyleSheet } from "react-native";
 import { StatusBar } from "react-native";
 
 const styles = StyleSheet.create({
-	Sidebar: {
-		height: "85%",
+	Layout: {
+		position: "absolute",
+		zIndex: 1,
 		width: "75%",
+		height: "100%",
+	},
+	Sidebar: {
+		height: "95%",
+		width: "100%",
 	},
 	container: {
 		display: "flex",
@@ -16,6 +22,8 @@ const styles = StyleSheet.create({
 		borderStyle: "solid",
 		borderRightWidth: 1,
 		borderRightColor: "#d2d2d2",
+		borderBottomRightRadius: 10,
+		borderTopRightRadius: 10,
 	},
 	item: {
 		width: "90%",
@@ -57,7 +65,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		backgroundColor: colors.blue[500],
 	},
 	logoImg: {
 		width: 100,
