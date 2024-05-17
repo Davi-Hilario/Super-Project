@@ -6,11 +6,11 @@ import { StatusBar } from "react-native";
 const styles = StyleSheet.create({
 	Layout: {
 		position: "absolute",
-		zIndex: 1,
 		width: "75%",
 		height: "100%",
 	},
 	Sidebar: {
+		zIndex: 1,
 		height: "95%",
 		width: "100%",
 	},

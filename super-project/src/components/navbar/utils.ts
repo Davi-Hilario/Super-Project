@@ -8,7 +8,7 @@ export const DATA = [
 		icon: "home",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		navigationUrl: Utils.screenNames.LOGIN,
+		navigationUrl: Utils.screenNames.HOME,
 	},
 	{
 		id: 2,
@@ -32,7 +32,7 @@ export const DATA = [
 		icon: "inventory",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		navigationUrl: Utils.screenNames.LOGIN,
+		navigationUrl: Utils.screenNames.MANAGE_PRODUCTS,
 	},
 	{
 		id: 5,
@@ -40,6 +40,6 @@ export const DATA = [
 		icon: "manage-accounts",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		navigationUrl: Utils.screenNames.LOGIN,
+		navigationUrl: Utils.screenNames.MANAGE_ACCOUNTS,
 	},
 ];

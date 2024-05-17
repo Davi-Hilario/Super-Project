@@ -20,8 +20,31 @@ function Home() {
 			);
 		}
 
-		console.log("Signed In sucessfully!");
-		navigation.navigate(Utils.screenNames.HOME);
+		fetch("http://localhost:8080/users/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+			}),
+		})
+			.then((response) => {
+				if (response.ok) {
+					response.json().then((json) => {
+						Alert.alert("Login", "Signed In sucessfully!");
+						navigation.navigate(Utils.screenNames.HOME);
+					});
+				} else {
+					response.text().then((text) => {
+						Alert.alert(`Error ${response.status}`, text);
+					});
+				}
+			})
+			.catch((error) => {
+				console.warn("Error while trying to login: " + error);
+			});
 	}
 
 	return (
