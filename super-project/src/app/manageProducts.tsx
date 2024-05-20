@@ -4,6 +4,8 @@ import styles from "./css/manageProducts.style";
 import Navbar from "../components/navbar/NavBar";
 import ProductList from "../components/productsList/ProductList";
 import { ProductData } from "../types/types";
+import Button from "../components/button/Button";
+import Searchbar from "../components/searchbar/Searchbar";
 
 function ManageProducts() {
 	let [products, setProducts] = useState([]);
@@ -35,10 +37,31 @@ function ManageProducts() {
 	return (
 		<View style={styles.ManageProducts}>
 			<Navbar selectedId={4} />
-			<ScrollView>
+			<View style={styles.optionsArea}>
+				<Searchbar
+					placeholder='Serch for a product'
+					onPress={() => console.log("Search")}
+					onChangeText={(e) => console.log(e)}
+				/>
+				<View style={styles.buttonsArea}>
+					<Button
+						value='Add new Item'
+						icon='add'
+						onPress={() => console.log("test")}
+					/>
+				</View>
+			</View>
+			<ScrollView
+				style={styles.productsArea}
+				contentContainerStyle={{
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
 				{products.map((item: ProductData, index) => (
 					<ProductList
 						name={item.name}
+						description={item.description}
 						image={item.image}
 						price={item.price}
 						key={index}
