@@ -1,11 +1,12 @@
-import { Alert, Text, View } from "react-native";
-import styles from "./css/index.style";
-import Input from "../components/input/Input";
-import { MaterialIcons } from "@expo/vector-icons";
-import Button from "../components/button/Button";
-import { Link, useNavigation } from "expo-router";
 import { useState } from "react";
 import Utils from "../utils/Utils";
+import styles from "./css/index.style";
+import Input from "../components/input/Input";
+import { Alert, Text, View } from "react-native";
+import Button from "../components/button/Button";
+import { Link, useNavigation } from "expo-router";
+import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Home() {
 	let [email, setEmail] = useState("");
@@ -33,10 +34,10 @@ function Home() {
 			.then((response) => {
 				if (response.ok) {
 					response.json().then((json) => {
-						if (json.role === 1) {
-							Alert.alert("Login", "Signed In sucessfully!");
-							navigation.navigate(Utils.screenNames.HOME);
-						}
+						Alert.alert("Login", "Signed In sucessfully!");
+						AsyncStorage.setItem("email", json.email);
+						AsyncStorage.setItem("password", json.password);
+						navigation.navigate(Utils.screenNames.HOME);
 					});
 				} else {
 					response.text().then((text) => {

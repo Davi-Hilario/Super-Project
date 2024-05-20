@@ -15,9 +15,14 @@ const productsSlice = createSlice({
 			};
 			state.push(newProduct);
 		},
+		removeAllProducts: (state, action) => {
+			if (state.length != 0) {
+				state.length = action.payload.length;
+			}
+		},
 	},
 });
 
-export const { addAllProducts } = productsSlice.actions;
+export const { addAllProducts, removeAllProducts } = productsSlice.actions;
 
 export default productsSlice.reducer;

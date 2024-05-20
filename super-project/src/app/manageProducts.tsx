@@ -6,9 +6,18 @@ import ProductList from "../components/productsList/ProductList";
 import { ProductData } from "../types/types";
 import Button from "../components/button/Button";
 import Searchbar from "../components/searchbar/Searchbar";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	addAllProducts,
+	removeAllProducts,
+} from "../redux/slices/productsSlice";
+import Utils from "../utils/Utils";
+import { useNavigation } from "expo-router";
 
 function ManageProducts() {
-	let [products, setProducts] = useState([]);
+	const allProducts = useSelector((state: any) => state.products);
+	const navigation = useNavigation<any>();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		fetch("http://localhost:8080/products", {
@@ -19,10 +28,17 @@ function ManageProducts() {
 		})
 			.then((response) => {
 				if (response.ok) {
-					response.json().then((json) => {
-						console.log(json);
-						setProducts(json);
-					});
+					response
+						.json()
+						.then((json) => {
+							json.forEach((item: ProductData) => {
+								dispatch(addAllProducts(item));
+							});
+							dispatch(removeAllProducts(json));
+						})
+						.catch((error) => {
+							console.log(error);
+						});
 				} else {
 					response.text().then((text) => {
 						Alert.alert(`Error ${response.status}, ${text}`);
@@ -47,7 +63,7 @@ function ManageProducts() {
 					<Button
 						value='Add new Item'
 						icon='add'
-						onPress={() => console.log("test")}
+						onPress={() => navigation.navigate(Utils.screenNames.ADD_NEW_ITEM)}
 					/>
 				</View>
 			</View>
@@ -58,7 +74,7 @@ function ManageProducts() {
 					alignItems: "center",
 				}}
 			>
-				{products.map((item: ProductData, index) => (
+				{allProducts.map((item: ProductData, index: number) => (
 					<ProductList
 						name={item.name}
 						description={item.description}
