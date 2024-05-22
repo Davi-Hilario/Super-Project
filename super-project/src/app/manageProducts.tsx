@@ -1,4 +1,3 @@
-import { BASE_URL } from "@env";
 import Utils from "../utils/Utils";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
@@ -53,7 +52,7 @@ function ManageProducts() {
 					<Button
 						value='Add new Item'
 						icon='add'
-						onPress={() => navigation.navigate(Utils.screenNames.ADD_NEW_ITEM)}
+						onPress={() => navigation.navigate(Utils.screenNames.ADD_PRODUCT)}
 					/>
 				</View>
 			</View>
@@ -66,6 +65,7 @@ function ManageProducts() {
 			>
 				{productsList.map((item: ProductData, index: number) => (
 					<ProductList
+						id={item.id}
 						name={item.name}
 						description={item.description}
 						image={item.image}

@@ -28,4 +28,14 @@ export const ProductModel = {
 		let json = await result.json();
 		return json;
 	},
+	findProduct: async (id: number): Promise<any> => {
+		let result: any = await fetch(`${BASE_URL}/products/${id}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		let json = await result.json();
+		return json;
+	},
 };
