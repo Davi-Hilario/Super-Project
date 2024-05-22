@@ -1,3 +1,4 @@
+import { BASE_URL } from "@env";
 import { useState } from "react";
 import Utils from "../utils/Utils";
 import styles from "./css/index.style";
@@ -21,7 +22,7 @@ function Home() {
 			);
 		}
 
-		fetch("http://localhost:8080/users/login-admin", {
+		fetch(`${BASE_URL}/users/login-by-role`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -29,6 +30,7 @@ function Home() {
 			body: JSON.stringify({
 				email: email,
 				password: password,
+				role: 1,
 			}),
 		})
 			.then((response) => {

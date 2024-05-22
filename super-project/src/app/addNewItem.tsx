@@ -1,11 +1,14 @@
-import { Text, View } from "react-native";
-import styles from "./css/addNewItem.style";
-import Navbar from "../components/navbar/NavBar";
-import Input from "../components/input/Input";
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import { colors } from "../styles/colors";
-import Button from "../components/button/Button";
 import { useState } from "react";
+import { colors } from "../styles/colors";
+import styles from "./css/addNewItem.style";
+import Input from "../components/input/Input";
+import { Alert, Text, View } from "react-native";
+import Navbar from "../components/navbar/NavBar";
+import Button from "../components/button/Button";
+import { ProductModel } from "../model/productModel";
+import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/slices/productsSlice";
 
 function addNewItem() {
 	let [name, setName] = useState<string>("");
@@ -13,8 +16,19 @@ function addNewItem() {
 	let [price, setPrice] = useState<number>(0.0);
 	let [imageUrl, setImageUrl] = useState<string>("");
 
+	let dispatch = useDispatch();
+
 	function handleButtonPress() {
-		console.log("Pressed");
+		async function loadData() {
+			let data = await ProductModel.createNewProduct({
+				name: name,
+				description: description,
+				price: price,
+				image: imageUrl,
+			});
+			dispatch(addProduct(data));
+		}
+		loadData();
 	}
 
 	return (

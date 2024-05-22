@@ -1,18 +1,21 @@
+import { BASE_URL } from "@env";
+import Utils from "../utils/Utils";
+import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
-import { Alert, ScrollView, View } from "react-native";
-import styles from "./css/manageProducts.style";
-import Navbar from "../components/navbar/NavBar";
-import ProductList from "../components/productsList/ProductList";
 import { ProductData } from "../types/types";
+import styles from "./css/manageProducts.style";
 import Button from "../components/button/Button";
-import Searchbar from "../components/searchbar/Searchbar";
+import Navbar from "../components/navbar/NavBar";
+import { ProductModel } from "../model/productModel";
 import { useDispatch, useSelector } from "react-redux";
+import { Alert, ScrollView, View } from "react-native";
+import Searchbar from "../components/searchbar/Searchbar";
+import ProductList from "../components/productsList/ProductList";
+
 import {
 	addAllProducts,
 	removeAllProducts,
 } from "../redux/slices/productsSlice";
-import Utils from "../utils/Utils";
-import { useNavigation } from "expo-router";
 
 function ManageProducts() {
 	const allProducts = useSelector((state: any) => state.products);
@@ -20,34 +23,11 @@ function ManageProducts() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		fetch("http://localhost:8080/products", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				if (response.ok) {
-					response
-						.json()
-						.then((json) => {
-							json.forEach((item: ProductData) => {
-								dispatch(addAllProducts(item));
-							});
-							dispatch(removeAllProducts(json));
-						})
-						.catch((error) => {
-							console.log(error);
-						});
-				} else {
-					response.text().then((text) => {
-						Alert.alert(`Error ${response.status}, ${text}`);
-					});
-				}
-			})
-			.catch((error) => {
-				Alert.alert("Server Error", `Error while trying to get data: ${error}`);
-			});
+		async function loadData() {
+			let data = await ProductModel.findAllProducts();
+			dispatch(addAllProducts(data));
+		}
+		loadData();
 	}, []);
 
 	return (

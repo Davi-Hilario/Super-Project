@@ -1,11 +1,12 @@
+import { BASE_URL } from "@env";
+import { useEffect } from "react";
 import styles from "./css/manageAccounts.style";
 import Navbar from "../components/navbar/NavBar";
 import { Alert, View } from "react-native";
-import { useEffect } from "react";
 
 function ManageAccounts() {
 	useEffect(() => {
-		fetch("http://localhost:8080/users", {
+		fetch(`${BASE_URL}/users`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",

@@ -5,6 +5,10 @@ const productsSlice = createSlice({
 	initialState: [],
 	reducers: {
 		addAllProducts: (state, action) => {
+			state.length = 0;
+			action.payload.forEach((item) => state.push(item));
+		},
+		addProduct: (state, action) => {
 			const newProduct = {
 				id: action.payload.id,
 				name: action.payload.name,
@@ -23,6 +27,7 @@ const productsSlice = createSlice({
 	},
 });
 
-export const { addAllProducts, removeAllProducts } = productsSlice.actions;
+export const { addProduct, addAllProducts, removeAllProducts } =
+	productsSlice.actions;
 
 export default productsSlice.reducer;
