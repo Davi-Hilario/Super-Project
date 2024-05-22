@@ -9,6 +9,8 @@ import { ProductModel } from "../model/productModel";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/slices/productsSlice";
+import { useNavigation } from "expo-router";
+import Utils from "../utils/Utils";
 
 function addNewItem() {
 	let [name, setName] = useState<string>("");
@@ -16,7 +18,8 @@ function addNewItem() {
 	let [price, setPrice] = useState<number>(0.0);
 	let [imageUrl, setImageUrl] = useState<string>("");
 
-	let dispatch = useDispatch();
+	const dispatch = useDispatch();
+	const navigation = useNavigation<any>();
 
 	function handleButtonPress() {
 		async function loadData() {
@@ -27,8 +30,10 @@ function addNewItem() {
 				image: imageUrl,
 			});
 			dispatch(addProduct(data));
+			Alert.alert("Success!", "New product created with success!");
 		}
 		loadData();
+		navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
 	}
 
 	return (

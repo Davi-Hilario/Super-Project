@@ -12,23 +12,32 @@ import { Alert, ScrollView, View } from "react-native";
 import Searchbar from "../components/searchbar/Searchbar";
 import ProductList from "../components/productsList/ProductList";
 
-import {
-	addAllProducts,
-	removeAllProducts,
-} from "../redux/slices/productsSlice";
+import { addAllProducts } from "../redux/slices/productsSlice";
 
 function ManageProducts() {
 	const allProducts = useSelector((state: any) => state.products);
 	const navigation = useNavigation<any>();
 	const dispatch = useDispatch();
 
+	let [searchText, setSearchText] = useState("");
+	let [productsList, setProductsList] = useState([]);
+
 	useEffect(() => {
 		async function loadData() {
 			let data = await ProductModel.findAllProducts();
 			dispatch(addAllProducts(data));
+			setProductsList(allProducts);
 		}
 		loadData();
 	}, []);
+
+	function handleSearch() {
+		setProductsList(
+			allProducts.filter((value: any) =>
+				value.name.toUpperCase().includes(searchText.toUpperCase())
+			)
+		);
+	}
 
 	return (
 		<View style={styles.ManageProducts}>
@@ -36,8 +45,9 @@ function ManageProducts() {
 			<View style={styles.optionsArea}>
 				<Searchbar
 					placeholder='Serch for a product'
-					onPress={() => console.log("Search")}
-					onChangeText={(e) => console.log(e)}
+					onPress={handleSearch}
+					onChangeText={setSearchText}
+					onBlur={handleSearch}
 				/>
 				<View style={styles.buttonsArea}>
 					<Button
@@ -54,7 +64,7 @@ function ManageProducts() {
 					alignItems: "center",
 				}}
 			>
-				{allProducts.map((item: ProductData, index: number) => (
+				{productsList.map((item: ProductData, index: number) => (
 					<ProductList
 						name={item.name}
 						description={item.description}

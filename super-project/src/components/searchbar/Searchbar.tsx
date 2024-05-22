@@ -7,6 +7,7 @@ type Props = {
 	placeholder: string;
 	onPress: () => void;
 	onChangeText: (e: string) => void;
+	onBlur: () => void;
 };
 
 function Searchbar(props: Props) {
@@ -25,6 +26,7 @@ function Searchbar(props: Props) {
 					style={styles.textInput}
 					placeholder={props.placeholder}
 					onChangeText={props.onChangeText}
+					onBlur={props.onBlur}
 				/>
 			</View>
 		</View>
