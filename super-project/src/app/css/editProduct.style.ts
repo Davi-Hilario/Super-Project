@@ -28,11 +28,15 @@ const styles = StyleSheet.create({
 	},
 	form: {
 		width: "90%",
-		height: "80%",
+		height: "90%",
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "space-evenly",
 		alignItems: "center",
+	},
+	image: {
+		width: 175,
+		height: 175,
 	},
 });
 

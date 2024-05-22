@@ -38,4 +38,20 @@ export const ProductModel = {
 		let json = await result.json();
 		return json;
 	},
+	updateProduct: async (id: number, data: ProductData): Promise<any> => {
+		let result: any = await fetch(`${BASE_URL}/products/${id}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				name: data.name,
+				description: data.description,
+				price: data.price,
+				image: data.image,
+			}),
+		});
+		let json = await result.json();
+		return json;
+	},
 };
