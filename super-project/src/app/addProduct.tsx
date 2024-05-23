@@ -15,7 +15,7 @@ import { addProduct as addNewItem } from "../redux/slices/productsSlice";
 function addProduct() {
 	let [name, setName] = useState<string>("");
 	let [description, setDescription] = useState<string>("");
-	let [price, setPrice] = useState<number>(0.0);
+	let [price, setPrice] = useState<string>("");
 	let [imageUrl, setImageUrl] = useState<string>("");
 
 	const dispatch = useDispatch();
@@ -26,14 +26,19 @@ function addProduct() {
 			let data = await ProductModel.createNewProduct({
 				name: name,
 				description: description,
-				price: price,
+				price: Number(String(price).replace(",", ".")),
 				image: imageUrl,
 			});
-			dispatch(addNewItem(data));
-			Alert.alert("Success!", "New product created with success!");
+			console.log(data);
+			if (!data.error) {
+				dispatch(addNewItem(data));
+				Alert.alert("Success!", "New product created with success!");
+				navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
+			} else {
+				Alert.alert("Error: " + data.error, "Error in creating the product!");
+			}
 		}
 		loadData();
-		navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
 	}
 
 	return (
@@ -57,7 +62,7 @@ function addProduct() {
 						<Input.Field
 							placeholder='Product price (R$)'
 							keyboardType='numeric'
-							onChangeText={(e: string) => setPrice(Number(e))}
+							onChangeText={(e: string) => setPrice(e)}
 						/>
 						<FontAwesome name='money' size={30} color={colors.blue[900]} />
 					</Input>
