@@ -6,14 +6,15 @@ import { colors } from "@/src/styles/colors";
 type Props = {
 	value: string;
 	icon?: any;
+	color?: string;
 	onPress: () => void;
 };
 
-function Button({ value, icon, onPress }: Props) {
+function Button({ value, icon, color, onPress }: Props) {
 	return (
 		<TouchableOpacity
 			activeOpacity={0.9}
-			style={styles.Button}
+			style={[styles.Button, { backgroundColor: color || colors.blue[500] }]}
 			onPress={onPress}
 		>
 			<Text style={styles.btnText}>{value}</Text>

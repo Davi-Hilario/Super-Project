@@ -13,4 +13,14 @@ export type ProductData = {
 	description?: string;
 	price?: number;
 	image?: string;
+	pressed?: boolean;
+};
+
+export type UserData = {
+	id?: number;
+	name?: string;
+	role?: number;
+	email?: string;
+	password?: string;
+	image?: string;
 };

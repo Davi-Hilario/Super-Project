@@ -9,6 +9,7 @@ import { Link, useNavigation } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FUNCTIONS } from "../styles/global";
+import { userModel } from "../model/userModel";
 
 function Home() {
 	let [email, setEmail] = useState("");
@@ -33,34 +34,19 @@ function Home() {
 			);
 		}
 
-		fetch(`${BASE_URL}/users/login-by-role`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				email: email,
-				password: password,
-				role: 1,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					response.json().then((json) => {
-						Alert.alert("Login", "Signed In sucessfully!");
-						AsyncStorage.setItem("email", json.email);
-						AsyncStorage.setItem("password", json.password);
-						navigation.navigate(Utils.screenNames.HOME);
-					});
-				} else {
-					response.text().then((text) => {
-						Alert.alert(`Error ${response.status}`, text);
-					});
-				}
-			})
-			.catch((error) => {
-				Alert.alert("Server Error", `Error while trying to login: ${error}`);
-			});
+		async function login() {
+			let data = await userModel.login({ email: email, password: password });
+
+			if (data.error) {
+				Alert.alert("Error " + data.error, "Failed to sign in!");
+			} else {
+				Alert.alert("Success!", "Signed in successfully!");
+				AsyncStorage.setItem("email", data.email);
+				AsyncStorage.setItem("email", data.password);
+				navigation.navigate(Utils.screenNames.HOME);
+			}
+		}
+		login();
 	}
 
 	return (

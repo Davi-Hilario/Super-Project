@@ -15,18 +15,33 @@ const styles = StyleSheet.create({
 	optionsArea: {
 		marginTop: "20%",
 		width: "100%",
-		height: "20%",
+		height: "30%",
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "space-evenly",
 		alignItems: "center",
 	},
 	buttonsArea: {
-		width: "90%",
+		width: "95%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-between",
+		alignItems: "center",
+	},
+	deleteProductsArea: {
+		display: "flex",
+		flexDirection: "row",
+		width: "100%",
+		height: "20%",
+		justifyContent: "space-between",
+		alignItems: "center",
 	},
 	productsArea: {
 		width: "100%",
-		height: "90%",
+		height: "100%",
+	},
+	btnFragment: {
+		width: "49%",
 	},
 });
 

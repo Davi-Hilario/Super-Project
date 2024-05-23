@@ -6,7 +6,10 @@ const productsSlice = createSlice({
 	reducers: {
 		addAllProducts: (state, action) => {
 			state.length = 0;
-			action.payload.forEach((item) => state.push(item));
+			action.payload.forEach((item) => {
+				item.pressed = false;
+				state.push(item);
+			});
 		},
 		addProduct: (state, action) => {
 			const newProduct = {
@@ -15,7 +18,7 @@ const productsSlice = createSlice({
 				price: action.payload.price,
 				description: action.payload.description,
 				image: action.payload.image,
-				isSelected: false,
+				pressed: false,
 			};
 			state.push(newProduct);
 		},
@@ -24,10 +27,32 @@ const productsSlice = createSlice({
 				state.length = action.payload.length;
 			}
 		},
+		handlePressed: (state, action) => {
+			state.forEach((product) => {
+				if (product.id === action.payload.id) {
+					product.pressed = !product.pressed;
+					return;
+				}
+			});
+		},
+		deleteProduct: (state, action) => {
+			state = state.filter((item) => item.id != action.payload.id);
+		},
+		deleteAllProducts: (state, action) => {
+			action.payload.forEach((product) => {
+				state = state.filter((item) => item.id != product.id);
+			});
+		},
 	},
 });
 
-export const { addProduct, addAllProducts, removeAllProducts } =
-	productsSlice.actions;
+export const {
+	addProduct,
+	addAllProducts,
+	removeAllProducts,
+	handlePressed,
+	deleteProduct,
+	deleteAllProducts,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
