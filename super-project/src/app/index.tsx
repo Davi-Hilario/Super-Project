@@ -1,5 +1,5 @@
 import { BASE_URL } from "@env";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Utils from "../utils/Utils";
 import styles from "./css/index.style";
 import Input from "../components/input/Input";
@@ -8,11 +8,22 @@ import Button from "../components/button/Button";
 import { Link, useNavigation } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FUNCTIONS } from "../styles/global";
 
 function Home() {
 	let [email, setEmail] = useState("");
 	let [password, setPassword] = useState("");
-	let navigation = useNavigation<any>();
+	const navigation = useNavigation<any>();
+
+	useEffect(() => {
+		async function checkAuthentication() {
+			let data = await FUNCTIONS.validateAuth();
+			let route =
+				data === null ? Utils.screenNames.LOGIN : Utils.screenNames.HOME;
+			navigation.navigate(route);
+		}
+		checkAuthentication();
+	});
 
 	function handleSubmit() {
 		if (!email.trim() || !password.trim()) {

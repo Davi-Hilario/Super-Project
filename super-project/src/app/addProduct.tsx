@@ -26,10 +26,10 @@ function addProduct() {
 			let data = await ProductModel.createNewProduct({
 				name: name,
 				description: description,
-				price: Number(String(price).replace(",", ".")),
+				price: Number(price.replace(",", ".")),
 				image: imageUrl,
 			});
-			console.log(data);
+
 			if (!data.error) {
 				dispatch(addNewItem(data));
 				Alert.alert("Success!", "New product created with success!");

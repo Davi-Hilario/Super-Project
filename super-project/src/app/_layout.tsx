@@ -1,9 +1,9 @@
 import "../styles/global.css";
 import { Slot } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import Loading from "../components/loading/Loading";
 import { useFonts } from "expo-font";
 import { store } from "../redux/store";
+import { StatusBar } from "expo-status-bar";
+import Loading from "../components/loading/Loading";
 
 import {
 	RadioCanadaBig_400Regular,

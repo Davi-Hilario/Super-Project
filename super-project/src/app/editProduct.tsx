@@ -16,7 +16,7 @@ import { ProductData } from "../types/types";
 function EditProduct() {
 	let [name, setName] = useState<string | undefined>("");
 	let [description, setDescription] = useState<string | undefined>("");
-	let [price, setPrice] = useState<number | undefined>(0.0);
+	let [price, setPrice] = useState<string | undefined>("");
 	let [imageUrl, setImageUrl] = useState<string | undefined>("");
 
 	const route = useRoute<any>();
@@ -29,7 +29,7 @@ function EditProduct() {
 			let data: ProductData = await ProductModel.findProduct(id);
 			setName(data.name);
 			setDescription(data.description);
-			setPrice(data.price);
+			setPrice(String(data.price));
 			setImageUrl(data.image);
 		}
 		loadData();
@@ -40,15 +40,18 @@ function EditProduct() {
 			let data = await ProductModel.updateProduct(id, {
 				name: name,
 				description: description,
-				price: price,
+				price: Number(String(price).replace(",", ".")),
 				image: imageUrl,
 			});
-			// dispatch(addNewItem(data));
-			console.log(data);
-			Alert.alert("Success!", "The product was updated!");
+
+			if (!data.error) {
+				Alert.alert("Success!", "The product was updated!");
+				navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
+			} else {
+				Alert.alert("Error: " + data.error, "Error in updating the product!");
+			}
 		}
 		loadData();
-		// navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
 	}
 
 	return (
@@ -78,7 +81,7 @@ function EditProduct() {
 							value={String(price)}
 							placeholder='Product price (R$)'
 							keyboardType='numeric'
-							onChangeText={(e: string) => setPrice(Number(e))}
+							onChangeText={(e: string) => setPrice(e)}
 						/>
 						<FontAwesome name='money' size={30} color={colors.blue[900]} />
 					</Input>
@@ -91,7 +94,6 @@ function EditProduct() {
 						<MaterialIcons name='link' size={30} color={colors.blue[900]} />
 					</Input>
 					<Image source={{ uri: imageUrl }} alt={name} style={styles.image} />
-
 					<Button value='Edit product' onPress={handleButtonPress} />
 				</View>
 			</View>
