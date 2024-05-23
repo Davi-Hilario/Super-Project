@@ -35,6 +35,11 @@ const productsSlice = createSlice({
 				}
 			});
 		},
+		pressAll: (state, action) => {
+			state.forEach((product) => {
+				product.pressed = action.payload.isPressed;
+			});
+		},
 		deleteProduct: (state, action) => {
 			state = state.filter((item) => item.id != action.payload.id);
 		},
@@ -51,6 +56,7 @@ export const {
 	addAllProducts,
 	removeAllProducts,
 	handlePressed,
+	pressAll,
 	deleteProduct,
 	deleteAllProducts,
 } = productsSlice.actions;

@@ -15,6 +15,8 @@ import {
 	addAllProducts,
 	deleteAllProducts,
 	deleteProduct,
+	handlePressed,
+	pressAll,
 } from "../redux/slices/productsSlice";
 import { colors } from "../styles/colors";
 
@@ -72,7 +74,17 @@ function ManageProducts() {
 							<View style={styles.btnFragment}>
 								<Button
 									value='Select All'
-									onPress={() => console.log("select all")}
+									onPress={() => {
+										allProducts.forEach((item: ProductData) => {
+											dispatch(
+												pressAll({
+													isPressed:
+														pressedProductsList.length >= 1 &&
+														pressedProductsList.length != productsList.length,
+												})
+											);
+										});
+									}}
 								/>
 							</View>
 							<View style={styles.btnFragment}>
