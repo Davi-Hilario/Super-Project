@@ -36,8 +36,12 @@ const productsSlice = createSlice({
 			});
 		},
 		pressAll: (state, action) => {
-			state.forEach((product) => {
-				product.pressed = action.payload.isPressed;
+			state.forEach((item) => {
+				action.payload.data.forEach((product) => {
+					if (item.id === product.id) {
+						item.pressed = action.payload.isPressed;
+					}
+				});
 			});
 		},
 		deleteProduct: (state, action) => {

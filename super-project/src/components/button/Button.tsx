@@ -8,14 +8,16 @@ type Props = {
 	icon?: any;
 	color?: string;
 	onPress: () => void;
+	onPressOut?: () => void;
 };
 
-function Button({ value, icon, color, onPress }: Props) {
+function Button({ value, icon, color, onPress, onPressOut }: Props) {
 	return (
 		<TouchableOpacity
 			activeOpacity={0.9}
 			style={[styles.Button, { backgroundColor: color || colors.blue[500] }]}
 			onPress={onPress}
+			onPressOut={onPressOut}
 		>
 			<Text style={styles.btnText}>{value}</Text>
 			{icon && (

@@ -39,7 +39,7 @@ function ManageProducts() {
 	}, []);
 
 	useEffect(() => {
-		setProductsList(allProducts);
+		handleSearch();
 
 		let pressedItems = allProducts.filter((item: ProductData) => item.pressed);
 		setPressedProductsList(pressedItems);
@@ -78,6 +78,7 @@ function ManageProducts() {
 										allProducts.forEach((item: ProductData) => {
 											dispatch(
 												pressAll({
+													data: productsList,
 													isPressed:
 														pressedProductsList.length >= 1 &&
 														pressedProductsList.length != productsList.length,
@@ -92,10 +93,16 @@ function ManageProducts() {
 									value='Delete Items'
 									color={colors.red[100]}
 									onPress={() => {
+										dispatch(deleteAllProducts(pressedProductsList));
 										pressedProductsList.forEach((product: ProductData) => {
 											ProductModel.deleteProduct(product.id as number);
 										});
-										dispatch(deleteAllProducts(pressedProductsList));
+										setPressedProductsList([]);
+
+										let newProducts = allProducts.filter(
+											(item: ProductData) => !item.pressed
+										);
+										dispatch(addAllProducts(newProducts));
 									}}
 								/>
 							</View>
