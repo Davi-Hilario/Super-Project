@@ -41,8 +41,9 @@ function Home() {
 				Alert.alert("Error " + data.error, "Failed to sign in!");
 			} else {
 				Alert.alert("Success!", "Signed in successfully!");
+				AsyncStorage.setItem("name", data.name);
 				AsyncStorage.setItem("email", data.email);
-				AsyncStorage.setItem("email", data.password);
+				AsyncStorage.setItem("password", data.password);
 				navigation.navigate(Utils.screenNames.HOME);
 			}
 		}

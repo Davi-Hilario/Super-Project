@@ -6,6 +6,8 @@ enum ScreenNames {
 	MANAGE_PRODUCTS = "manageProducts",
 	ADD_PRODUCT = "addProduct",
 	EDIT_PRODUCT = "editProduct",
+	ADD_ACCOUNT = "addAccount",
+	EDIT_ACCOUNT = "editAccount",
 }
 
 export default class Utils {

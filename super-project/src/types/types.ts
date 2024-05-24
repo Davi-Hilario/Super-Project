@@ -23,4 +23,5 @@ export type UserData = {
 	email?: string;
 	password?: string;
 	image?: string;
+	pressed?: boolean;
 };

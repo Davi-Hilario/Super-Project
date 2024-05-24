@@ -4,11 +4,20 @@ import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { DATA } from "./utils";
 import { ItemData } from "@/src/types/types";
 import { colors } from "@/src/styles/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Navbar({ selectedId }: { selectedId: number }) {
 	let [active, setActive] = useState(false);
+	let [name, setName] = useState("");
+	let [email, setEmail] = useState("");
+
+	useEffect(() => {
+		AsyncStorage.getItem("email")
+			.then((data) => console.log(data))
+			.catch((error) => console.log(error));
+	}, []);
 
 	return (
 		<View style={styles.Layout}>
@@ -80,8 +89,8 @@ function SideBar({
 				<View style={styles.sideBarFooter}>
 					<Image source={{ uri: "https://img.logoipsum.com/243.svg" }} />
 					<View>
-						<Text style={styles.textUsername}>Username</Text>
-						<Text style={styles.textEmail}>username@gmail.com</Text>
+						<Text style={styles.textUsername}>{}</Text>
+						<Text style={styles.textEmail}>{}</Text>
 					</View>
 					<MaterialIcons name='more-vert' size={30} color={colors.white[200]} />
 				</View>

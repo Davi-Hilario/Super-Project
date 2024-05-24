@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { Alert, Image, Text, View } from "react-native";
-import styles from "./css/editProduct.style";
-import Navbar from "../components/navbar/NavBar";
-import { useRoute } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { useNavigation } from "expo-router";
-import { ProductModel } from "../model/productModel";
 import Utils from "../utils/Utils";
-import Input from "../components/input/Input";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
 import { colors } from "../styles/colors";
-import Button from "../components/button/Button";
+import { useEffect, useState } from "react";
+import { useNavigation } from "expo-router";
 import { ProductData } from "../types/types";
+import styles from "./css/editProduct.style";
+import Input from "../components/input/Input";
+import Navbar from "../components/navbar/NavBar";
+import Button from "../components/button/Button";
+import { useRoute } from "@react-navigation/native";
+import { ProductModel } from "../model/productModel";
+import { Alert, Image, Text, View } from "react-native";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
 function EditProduct() {
 	let [name, setName] = useState<string | undefined>("");
@@ -21,7 +21,6 @@ function EditProduct() {
 
 	const route = useRoute<any>();
 	const { id } = route.params;
-	const dispatch = useDispatch();
 	const navigation = useNavigation<any>();
 
 	useEffect(() => {

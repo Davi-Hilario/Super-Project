@@ -1,4 +1,5 @@
 import Utils from "../utils/Utils";
+import { colors } from "../styles/colors";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { ProductData } from "../types/types";
@@ -7,18 +8,15 @@ import Button from "../components/button/Button";
 import Navbar from "../components/navbar/NavBar";
 import { ProductModel } from "../model/productModel";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import Searchbar from "../components/searchbar/Searchbar";
 import ProductList from "../components/productsList/ProductList";
 
 import {
 	addAllProducts,
 	deleteAllProducts,
-	deleteProduct,
-	handlePressed,
 	pressAll,
 } from "../redux/slices/productsSlice";
-import { colors } from "../styles/colors";
 
 function ManageProducts() {
 	const allProducts = useSelector((state: any) => state.products);
@@ -97,6 +95,11 @@ function ManageProducts() {
 										pressedProductsList.forEach((product: ProductData) => {
 											ProductModel.deleteProduct(product.id as number);
 										});
+
+										Alert.alert(
+											"Success!",
+											`${pressedProductsList.length} products deleted with success!`
+										);
 										setPressedProductsList([]);
 
 										let newProducts = allProducts.filter(

@@ -1,6 +1,5 @@
 import { BASE_URL } from "@env";
 import { ProductData } from "../types/types";
-import { deleteProduct } from "../redux/slices/productsSlice";
 
 export const ProductModel = {
 	createNewProduct: async (data: ProductData): Promise<any> => {
