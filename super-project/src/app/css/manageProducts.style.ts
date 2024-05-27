@@ -1,5 +1,5 @@
-import { StatusBar, StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
+import { StatusBar, StyleSheet } from "react-native";
 import { fontFamily } from "@/src/styles/fontFamily";
 
 const styles = StyleSheet.create({

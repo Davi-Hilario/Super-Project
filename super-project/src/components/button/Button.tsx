@@ -1,7 +1,7 @@
-import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { styles } from "./Button.style";
-import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/src/styles/colors";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Text, TouchableOpacity } from "react-native";
 
 type Props = {
 	value: string;

@@ -1,5 +1,14 @@
-import { MaterialIcons } from "@expo/vector-icons";
+import { DATA } from "./utils";
 import styles from "./NavBar.style";
+import Button from "../button/Button";
+import Utils from "@/src/utils/Utils";
+import { useEffect, useState } from "react";
+import { useNavigation } from "expo-router";
+import { ItemData } from "@/src/types/types";
+import { colors } from "@/src/styles/colors";
+import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
 	Alert,
 	FlatList,
@@ -9,14 +18,6 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
-import { DATA } from "./utils";
-import { ItemData } from "@/src/types/types";
-import { colors } from "@/src/styles/colors";
-import { useEffect, useState } from "react";
-import { useNavigation } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Button from "../button/Button";
-import Utils from "@/src/utils/Utils";
 
 function Navbar({ selectedId }: { selectedId: number }) {
 	let [active, setActive] = useState(false);
@@ -138,7 +139,7 @@ function SideBar({
 							onPress={() =>
 								AsyncStorage.clear()
 									.then(() => {
-										Alert.alert("Bye :)");
+										Alert.alert("Logout", "Bye :)");
 										navigation.navigate(Utils.screenNames.LOGIN);
 									})
 									.catch((error) => {

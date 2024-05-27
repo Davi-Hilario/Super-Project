@@ -1,5 +1,5 @@
-import { colors } from "@/src/styles/colors";
 import Utils from "@/src/utils/Utils";
+import { colors } from "@/src/styles/colors";
 
 export const DATA = [
 	{

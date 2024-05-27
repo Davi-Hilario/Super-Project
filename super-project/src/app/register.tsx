@@ -1,12 +1,12 @@
-import { Text, View } from "react-native";
+import Utils from "../utils/Utils";
+import { Alert } from "react-native";
 import styles from "./css/register.style";
+import { Text, View } from "react-native";
+import { useState } from "react";
 import Input from "../components/input/Input";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useState, useEffect } from "react";
 import Button from "../components/button/Button";
 import { Link, useNavigation } from "expo-router";
-import { Alert } from "react-native";
-import Utils from "../utils/Utils";
+import { MaterialIcons } from "@expo/vector-icons";
 
 function Home() {
 	let [name, setName] = useState("");

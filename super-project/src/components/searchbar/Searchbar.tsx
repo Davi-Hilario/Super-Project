@@ -1,7 +1,7 @@
-import { TextInput, View } from "react-native";
 import styles from "./Searchbar.style";
-import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/src/styles/colors";
+import { TextInput, View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 type Props = {
 	placeholder: string;

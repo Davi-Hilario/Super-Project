@@ -1,7 +1,7 @@
-import { styles } from "./Input.style";
-import { TextInput, View, TextInputProps } from "react-native";
 import { ReactNode } from "react";
+import { styles } from "./Input.style";
 import { colors } from "@/src/styles/colors";
+import { TextInput, View, TextInputProps } from "react-native";
 
 function Input({ children }: { children: ReactNode }) {
 	return <View style={styles.Input}>{children}</View>;

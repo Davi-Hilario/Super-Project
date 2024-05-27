@@ -2,11 +2,13 @@ import Utils from "@/src/utils/Utils";
 import styles from "./UserList.style";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "expo-router";
+import { useEffect, useState } from "react";
 import { colors } from "@/src/styles/colors";
 import { UserData } from "@/src/types/types";
-import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import { userModel } from "@/src/model/userModel";
 import { handlePressed } from "@/src/redux/slices/accountsSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 function UserList({
 	id,
@@ -20,46 +22,39 @@ function UserList({
 	const navigation = useNavigation<any>();
 	const dispatch = useDispatch();
 
+	let [loggedUser, setLoggedUser] = useState<UserData>();
+
+	const syncUser = async () => {
+		let id = await AsyncStorage.getItem("id");
+		setLoggedUser(await userModel.findUser(Number(id)));
+	};
+
+	useEffect(() => {
+		syncUser();
+	}, []);
+
 	function handlePress(id: number) {
 		if (!pressed) {
-			AsyncStorage.getItem("email")
-				.then((value) => {
-					if (value === email) {
-						Alert.alert(
-							"Warning!",
-							"You can't update/delete your own account!"
-						);
-					} else {
-						navigation.navigate(Utils.screenNames.EDIT_ACCOUNT, { id: id });
-					}
-				})
-				.catch((error) => Alert.alert("Error!", error));
+			if (loggedUser?.id === id) {
+				Alert.alert("Warning!", "You can't update/delete your own account!");
+			} else {
+				navigation.navigate(Utils.screenNames.EDIT_ACCOUNT, { id: id });
+			}
 		} else {
-			AsyncStorage.getItem("email")
-				.then((value) => {
-					if (value === email) {
-						Alert.alert(
-							"Warning!",
-							"You can't update/delete your own account!"
-						);
-					} else {
-						dispatch(handlePressed({ id: id }));
-					}
-				})
-				.catch((error) => Alert.alert("Error!", error));
+			if (loggedUser?.id === id) {
+				Alert.alert("Warning!", "You can't update/delete your own account!");
+			} else {
+				dispatch(handlePressed({ id: id }));
+			}
 		}
 	}
 
 	function handleLongPress() {
-		AsyncStorage.getItem("email")
-			.then((value) => {
-				if (value === email) {
-					Alert.alert("Warning!", "You can't update/delete your own account!");
-				} else {
-					dispatch(handlePressed({ id: id }));
-				}
-			})
-			.catch((error) => Alert.alert("Error!", error));
+		if (loggedUser?.id === id) {
+			Alert.alert("Warning!", "You can't update/delete your own account!");
+		} else {
+			dispatch(handlePressed({ id: id }));
+		}
 	}
 
 	return (

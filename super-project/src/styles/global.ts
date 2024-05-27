@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-async function validateAuth(): Promise<object | null> {
+async function validateAuth(): Promise<any | null> {
 	let keys = await AsyncStorage.getAllKeys();
+	console.log(keys);
 	return keys.length === 0 ? null : keys;
 }
 

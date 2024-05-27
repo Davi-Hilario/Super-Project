@@ -1,13 +1,13 @@
 import Utils from "../utils/Utils";
 import { UserData } from "../types/types";
 import { colors } from "../styles/colors";
-import { Alert, FlatList, View } from "react-native";
 import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
 import { userModel } from "../model/userModel";
 import styles from "./css/manageAccounts.style";
 import Navbar from "../components/navbar/NavBar";
 import Button from "../components/button/Button";
+import { Alert, FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Searchbar from "../components/searchbar/Searchbar";
 

@@ -1,9 +1,9 @@
+import Utils from "../utils/Utils";
 import styles from "./css/home.style";
 import { Text, View } from "react-native";
 import { useNavigation } from "expo-router";
 import Navbar from "../components/navbar/NavBar";
 import BigButton from "../components/bigbutton/BigButton";
-import Utils from "../utils/Utils";
 
 function Home() {
 	const navigation = useNavigation<any>();

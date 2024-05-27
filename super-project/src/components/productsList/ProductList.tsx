@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "expo-router";
 import { colors } from "@/src/styles/colors";
 import { ProductData } from "@/src/types/types";
-import { Image, Text, TouchableOpacity, View } from "react-native";
 import { handlePressed } from "@/src/redux/slices/productsSlice";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 function ProductList({ id, name, description, image, pressed }: ProductData) {
 	const navigation = useNavigation<any>();
