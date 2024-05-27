@@ -1,13 +1,14 @@
 enum ScreenNames {
-	LOGIN = "index",
-	REGISTER = "register",
+	ADD_ACCOUNT = "addAccount",
+	ADD_PRODUCT = "addProduct",
+	EDIT_ACCOUNT = "editAccount",
+	EDIT_PRODUCT = "editProduct",
 	HOME = "home",
+	LOGIN = "index",
 	MANAGE_ACCOUNTS = "manageAccounts",
 	MANAGE_PRODUCTS = "manageProducts",
-	ADD_PRODUCT = "addProduct",
-	EDIT_PRODUCT = "editProduct",
-	ADD_ACCOUNT = "addAccount",
-	EDIT_ACCOUNT = "editAccount",
+	PROFILE = "profile",
+	REGISTER = "register",
 }
 
 export default class Utils {

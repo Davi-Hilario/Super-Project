@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
+		borderTopLeftRadius: 10,
+		borderBottomLeftRadius: 10,
 	},
 	textInputArea: {
 		width: "80%",

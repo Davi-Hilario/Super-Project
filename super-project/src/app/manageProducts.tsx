@@ -7,8 +7,8 @@ import styles from "./css/manageProducts.style";
 import Button from "../components/button/Button";
 import Navbar from "../components/navbar/NavBar";
 import { ProductModel } from "../model/productModel";
+import { Alert, FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, FlatList, ScrollView, View } from "react-native";
 import Searchbar from "../components/searchbar/Searchbar";
 import ProductList from "../components/productsList/ProductList";
 

@@ -16,7 +16,7 @@ export const DATA = [
 		icon: "person",
 		backgroundColor: colors.white[200],
 		foregroundColor: colors.blue[900],
-		navigationUrl: Utils.screenNames.LOGIN,
+		navigationUrl: Utils.screenNames.PROFILE,
 	},
 	{
 		id: 3,
