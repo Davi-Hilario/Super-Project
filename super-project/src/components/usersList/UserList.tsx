@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "expo-router";
 import { colors } from "@/src/styles/colors";
 import { UserData } from "@/src/types/types";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import { handlePressed } from "@/src/redux/slices/accountsSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function UserList({
 	id,
@@ -21,14 +22,44 @@ function UserList({
 
 	function handlePress(id: number) {
 		if (!pressed) {
-			navigation.navigate(Utils.screenNames.EDIT_ACCOUNT, { id: id });
+			AsyncStorage.getItem("email")
+				.then((value) => {
+					if (value === email) {
+						Alert.alert(
+							"Warning!",
+							"You can't update/delete your own account!"
+						);
+					} else {
+						navigation.navigate(Utils.screenNames.EDIT_ACCOUNT, { id: id });
+					}
+				})
+				.catch((error) => Alert.alert("Error!", error));
 		} else {
-			dispatch(handlePressed({ id: id }));
+			AsyncStorage.getItem("email")
+				.then((value) => {
+					if (value === email) {
+						Alert.alert(
+							"Warning!",
+							"You can't update/delete your own account!"
+						);
+					} else {
+						dispatch(handlePressed({ id: id }));
+					}
+				})
+				.catch((error) => Alert.alert("Error!", error));
 		}
 	}
 
 	function handleLongPress() {
-		dispatch(handlePressed({ id: id }));
+		AsyncStorage.getItem("email")
+			.then((value) => {
+				if (value === email) {
+					Alert.alert("Warning!", "You can't update/delete your own account!");
+				} else {
+					dispatch(handlePressed({ id: id }));
+				}
+			})
+			.catch((error) => Alert.alert("Error!", error));
 	}
 
 	return (

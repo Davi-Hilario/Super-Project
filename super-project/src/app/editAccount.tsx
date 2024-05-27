@@ -79,6 +79,7 @@ function EditAccount() {
 							{ label: "Admin", value: 1 },
 						]}
 						onChangeValue={(value) => {
+							console.log(value);
 							setRole(value);
 						}}
 						selectedValue={role}
