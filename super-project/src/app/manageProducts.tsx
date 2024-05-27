@@ -8,7 +8,7 @@ import Button from "../components/button/Button";
 import Navbar from "../components/navbar/NavBar";
 import { ProductModel } from "../model/productModel";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, ScrollView, View } from "react-native";
+import { Alert, FlatList, ScrollView, View } from "react-native";
 import Searchbar from "../components/searchbar/Searchbar";
 import ProductList from "../components/productsList/ProductList";
 
@@ -113,24 +113,23 @@ function ManageProducts() {
 					)}
 				</View>
 			</View>
-			<ScrollView
-				style={styles.productsArea}
+			<FlatList
+				data={productsList}
+				renderItem={({ item }: { item: ProductData }) => (
+					<ProductList
+						id={item.id}
+						name={item.name}
+						description={item.description}
+						price={item.price}
+						image={item.image}
+						pressed={item.pressed}
+					/>
+				)}
 				contentContainerStyle={{
 					justifyContent: "center",
 					alignItems: "center",
 				}}
-			>
-				{productsList.map((item: ProductData, index: number) => (
-					<ProductList
-						key={index}
-						id={item.id}
-						name={item.name}
-						description={item.description}
-						image={item.image}
-						pressed={item.pressed}
-					/>
-				))}
-			</ScrollView>
+			/>
 		</View>
 	);
 }
