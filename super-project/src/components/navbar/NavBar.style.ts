@@ -70,6 +70,33 @@ const styles = StyleSheet.create({
 		width: 100,
 		height: 100,
 	},
+	userImage: {
+		width: 80,
+		height: 80,
+		borderRadius: 10,
+	},
+	modal: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	modalBtnArea: {
+		width: "90%",
+		height: "40%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "center",
+		gap: 30,
+		padding: 20,
+		alignItems: "center",
+		backgroundColor: "#f5f5f5",
+		borderWidth: 10,
+		borderColor: colors.blue[900],
+		borderStyle: "solid",
+	},
+	modalTitle: {
+		fontSize: 50,
+	},
 });
 
 export default styles;

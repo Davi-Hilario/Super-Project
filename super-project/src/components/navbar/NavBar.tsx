@@ -1,23 +1,25 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "./NavBar.style";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+	Alert,
+	FlatList,
+	Image,
+	Modal,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import { DATA } from "./utils";
 import { ItemData } from "@/src/types/types";
 import { colors } from "@/src/styles/colors";
 import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Button from "../button/Button";
+import Utils from "@/src/utils/Utils";
 
 function Navbar({ selectedId }: { selectedId: number }) {
 	let [active, setActive] = useState(false);
-	let [name, setName] = useState("");
-	let [email, setEmail] = useState("");
-
-	useEffect(() => {
-		AsyncStorage.getItem("email")
-			.then((data) => console.log(data))
-			.catch((error) => console.log(error));
-	}, []);
 
 	return (
 		<View style={styles.Layout}>
@@ -62,6 +64,25 @@ function SideBar({
 		</TouchableOpacity>
 	);
 
+	let [name, setName] = useState("");
+	let [email, setEmail] = useState("");
+	let [image, setImage] = useState<string | null>(null);
+	let [isModalVisible, setIsModalVisible] = useState(false);
+
+	useEffect(() => {
+		AsyncStorage.getItem("name")
+			.then((data) => setName(data as string))
+			.catch((error) => console.log(error));
+
+		AsyncStorage.getItem("email")
+			.then((data) => setEmail(data as string))
+			.catch((error) => console.log(error));
+
+		AsyncStorage.getItem("image")
+			.then((data) => setImage(data as string))
+			.catch((error) => console.log(error));
+	}, []);
+
 	const renderItem = ({ item }: { item: ItemData }) => {
 		const backgroundColor =
 			selectedId === item.id ? colors.blue[500] : colors.white[200];
@@ -87,14 +108,47 @@ function SideBar({
 					contentContainerStyle={{ alignItems: "center" }}
 				></FlatList>
 				<View style={styles.sideBarFooter}>
-					<Image source={{ uri: "https://img.logoipsum.com/243.svg" }} />
+					<Image source={{ uri: image as string }} style={styles.userImage} />
 					<View>
-						<Text style={styles.textUsername}>{}</Text>
-						<Text style={styles.textEmail}>{}</Text>
+						<Text style={styles.textUsername}>{name}</Text>
+						<Text style={styles.textEmail}>{email}</Text>
 					</View>
-					<MaterialIcons name='more-vert' size={30} color={colors.white[200]} />
+					<MaterialIcons
+						name='more-vert'
+						size={30}
+						color={colors.white[200]}
+						onPress={() => setIsModalVisible(true)}
+					/>
 				</View>
 			</View>
+			<Modal
+				visible={isModalVisible}
+				onRequestClose={() => setIsModalVisible(false)}
+				animationType='fade'
+				transparent={true}
+			>
+				<TouchableOpacity
+					style={styles.modal}
+					onPress={() => setIsModalVisible(false)}
+				>
+					<View style={styles.modalBtnArea}>
+						<Text style={styles.modalTitle}>Logout?</Text>
+						<Button
+							value='Logout'
+							onPress={() =>
+								AsyncStorage.clear()
+									.then(() => {
+										Alert.alert("Bye :)");
+										navigation.navigate(Utils.screenNames.LOGIN);
+									})
+									.catch((error) => {
+										Alert.alert("Failed to logout: " + error);
+									})
+							}
+						/>
+					</View>
+				</TouchableOpacity>
+			</Modal>
 		</View>
 	);
 }

@@ -1,17 +1,16 @@
-import { BASE_URL } from "@env";
-import { useEffect, useState } from "react";
 import Utils from "../utils/Utils";
 import styles from "./css/index.style";
+import { useEffect, useState } from "react";
+import { FUNCTIONS } from "../styles/global";
 import Input from "../components/input/Input";
+import { userModel } from "../model/userModel";
 import { Alert, Text, View } from "react-native";
 import Button from "../components/button/Button";
 import { Link, useNavigation } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FUNCTIONS } from "../styles/global";
-import { userModel } from "../model/userModel";
 
-function Home() {
+function Login() {
 	let [email, setEmail] = useState("");
 	let [password, setPassword] = useState("");
 	const navigation = useNavigation<any>();
@@ -43,7 +42,7 @@ function Home() {
 				Alert.alert("Success!", "Signed in successfully!");
 				AsyncStorage.setItem("name", data.name);
 				AsyncStorage.setItem("email", data.email);
-				AsyncStorage.setItem("password", data.password);
+				AsyncStorage.setItem("image", data.image);
 				navigation.navigate(Utils.screenNames.HOME);
 			}
 		}
@@ -87,4 +86,4 @@ function Home() {
 	);
 }
 
-export default Home;
+export default Login;
