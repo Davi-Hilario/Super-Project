@@ -8,13 +8,14 @@ import Input from "../components/input/Input";
 import { userModel } from "../model/userModel";
 import Navbar from "../components/navbar/NavBar";
 import Button from "../components/button/Button";
+import { MaterialIcons } from "@expo/vector-icons";
+import Selectbox from "../components/picker/SelectBox";
 import { Alert, Image, Text, View } from "react-native";
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { addAccount as addNewAccount } from "../redux/slices/accountsSlice";
 
 function addAccount() {
 	let [username, setUsername] = useState<string | undefined>("");
-	let [role, setRole] = useState<string | undefined>("");
+	let [role, setRole] = useState<number | undefined>();
 	let [email, setEmail] = useState<string | undefined>("");
 	let [password, setPassword] = useState<string | undefined>("");
 	let [imageUrl, setImageUrl] = useState<string | undefined>("");
@@ -53,14 +54,15 @@ function addAccount() {
 						<Input.Field placeholder='Username' onChangeText={setUsername} />
 						<MaterialIcons name='person-4' size={30} color={colors.blue[900]} />
 					</Input>
-					<Input>
-						<Input.Field
-							placeholder='User role'
-							keyboardType='numeric'
-							onChangeText={setRole}
-						/>
-						<FontAwesome name='list' size={30} color={colors.blue[900]} />
-					</Input>
+					<Selectbox
+						items={[
+							{ label: "Client", value: 0 },
+							{ label: "Admin", value: 1 },
+						]}
+						onChangeValue={(value) => {
+							setRole(value);
+						}}
+					/>
 					<Input>
 						<Input.Field placeholder='User Email' onChangeText={setEmail} />
 						<MaterialIcons name='email' size={30} color={colors.blue[900]} />

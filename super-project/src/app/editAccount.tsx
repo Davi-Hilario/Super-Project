@@ -1,5 +1,4 @@
 import Utils from "../utils/Utils";
-import { useDispatch } from "react-redux";
 import { colors } from "../styles/colors";
 import { UserData } from "../types/types";
 import { useNavigation } from "expo-router";
@@ -9,13 +8,14 @@ import Input from "../components/input/Input";
 import { userModel } from "../model/userModel";
 import Navbar from "../components/navbar/NavBar";
 import Button from "../components/button/Button";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
+import Selectbox from "../components/picker/SelectBox";
 import { Alert, Image, Text, View } from "react-native";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
 function EditAccount() {
 	let [username, setUsername] = useState<string | undefined>("");
-	let [role, setRole] = useState<string | undefined>("");
+	let [role, setRole] = useState<number | undefined>();
 	let [email, setEmail] = useState<string | undefined>("");
 	let [password, setPassword] = useState<string | undefined>("");
 	let [imageUrl, setImageUrl] = useState<string | undefined>("");
@@ -28,7 +28,7 @@ function EditAccount() {
 		async function loadData() {
 			let data: UserData = await userModel.findUser(id);
 			setUsername(data.name);
-			setRole(String(data.role));
+			setRole(data.role);
 			setEmail(data.email);
 			setPassword(data.password);
 			setImageUrl(data.image);
@@ -73,15 +73,16 @@ function EditAccount() {
 						/>
 						<MaterialIcons name='person-4' size={30} color={colors.blue[900]} />
 					</Input>
-					<Input>
-						<Input.Field
-							value={role === "1" ? "Admin" : "Client"}
-							placeholder='User role'
-							keyboardType='numeric'
-							onChangeText={setRole}
-						/>
-						<FontAwesome name='list' size={30} color={colors.blue[900]} />
-					</Input>
+					<Selectbox
+						items={[
+							{ label: "Client", value: 0 },
+							{ label: "Admin", value: 1 },
+						]}
+						onChangeValue={(value) => {
+							setRole(value);
+						}}
+						selectedValue={role}
+					/>
 					<Input>
 						<Input.Field
 							value={email}
