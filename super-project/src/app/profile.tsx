@@ -7,7 +7,14 @@ import Navbar from "../components/navbar/NavBar";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert, Image, ScrollView, TouchableOpacity, View } from "react-native";
+import {
+	Alert,
+	Image,
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import Button from "../components/button/Button";
 
 function Profile() {
@@ -66,15 +73,9 @@ function Profile() {
 	return (
 		<View style={styles.Profile}>
 			<Navbar selectedId={2} />
-			<ScrollView
-				style={styles.container}
-				contentContainerStyle={{
-					alignItems: "center",
-					justifyContent: "center",
-				}}
-			>
+			<View style={styles.container}>
 				<TouchableOpacity
-					style={styles.imageArea}
+					style={[styles.imageArea, { height: imageChanged ? 300 : 175 }]}
 					activeOpacity={0.7}
 					onPress={handleSelectImage}
 				>
@@ -101,9 +102,18 @@ function Profile() {
 						<Button value='Save' onPress={handleChangeImage} />
 					</View>
 				</TouchableOpacity>
-
-				<View style={styles.info}></View>
-			</ScrollView>
+				<View style={styles.info}>
+					<View style={styles.infoContainer}>
+						<Text style={styles.infoTitle}>Your Info</Text>
+						<Text style={styles.infoText}>Name: {name}</Text>
+						<Text style={styles.infoText}>Email: {email}</Text>
+						<Text style={styles.infoText}>
+							Role: {role == 0 ? "Client" : "Admin"}
+						</Text>
+						<Text style={styles.infoText}>Password: {password}</Text>
+					</View>
+				</View>
+			</View>
 		</View>
 	);
 }

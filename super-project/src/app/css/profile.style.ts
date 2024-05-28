@@ -16,6 +16,8 @@ let styles = StyleSheet.create({
 		flexDirection: "column",
 		alignSelf: "center",
 		marginTop: "20%",
+		alignItems: "center",
+		justifyContent: "space-evenly",
 	},
 	imageArea: {
 		display: "flex",
@@ -38,7 +40,32 @@ let styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	info: {},
+	info: {
+		backgroundColor: colors.white[100],
+		borderRadius: 10,
+		width: "100%",
+		height: "70%",
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "space-around",
+	},
+	infoContainer: {
+		width: "95%",
+		height: "90%",
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "flex-start",
+		justifyContent: "space-evenly",
+	},
+	infoTitle: {
+		fontWeight: "bold",
+		fontSize: 40,
+	},
+	infoText: {
+		fontWeight: "medium",
+		fontSize: 25,
+	},
 });
 
 export default styles;
