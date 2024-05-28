@@ -22,7 +22,7 @@ function Home() {
 			);
 		}
 
-		console.log("Account created succesfully!");
+		Alert.alert("Success!", "Account created succesfully!");
 		navigation.navigate(Utils.screenNames.LOGIN);
 	}
 

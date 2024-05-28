@@ -1,10 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
 import { fontFamily } from "@/src/styles/fontFamily";
 
 const styles = StyleSheet.create({
 	Home: {
 		flex: 1,
+		marginTop: StatusBar.currentHeight,
 		backgroundColor: colors.white[200],
 		flexDirection: "column",
 	},

@@ -71,6 +71,22 @@ export const userModel = {
 		let json = await result.json();
 		return json;
 	},
+	changeImage: async (id: number, newImage: string): Promise<any> => {
+		let result: any = await fetch(
+			`${BASE_URL}/users/${id}/change-image?` +
+				new URLSearchParams({
+					newImage: newImage,
+				}),
+			{
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		let json = await result.json();
+		return json;
+	},
 	deleteAccount: async (id: number): Promise<void> => {
 		fetch(`${BASE_URL}/users/${id}`, {
 			method: "DELETE",

@@ -18,7 +18,7 @@ function EditAccount() {
 	let [role, setRole] = useState<number | undefined>();
 	let [email, setEmail] = useState<string | undefined>("");
 	let [password, setPassword] = useState<string | undefined>("");
-	let [imageUrl, setImageUrl] = useState<string | undefined>("");
+	let [imageUrl, setImageUrl] = useState<string | undefined>();
 
 	const route = useRoute<any>();
 	const { id } = route.params;
@@ -79,7 +79,6 @@ function EditAccount() {
 							{ label: "Admin", value: 1 },
 						]}
 						onChangeValue={(value) => {
-							console.log(value);
 							setRole(value);
 						}}
 						selectedValue={role}

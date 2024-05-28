@@ -17,7 +17,7 @@ function EditProduct() {
 	let [name, setName] = useState<string | undefined>("");
 	let [description, setDescription] = useState<string | undefined>("");
 	let [price, setPrice] = useState<string | undefined>("");
-	let [imageUrl, setImageUrl] = useState<string | undefined>("");
+	let [imageUrl, setImageUrl] = useState<string | undefined>();
 
 	const route = useRoute<any>();
 	const { id } = route.params;

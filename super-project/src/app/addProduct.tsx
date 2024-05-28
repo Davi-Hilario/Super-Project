@@ -16,7 +16,7 @@ function addProduct() {
 	let [name, setName] = useState<string>("");
 	let [description, setDescription] = useState<string>("");
 	let [price, setPrice] = useState<string>("");
-	let [imageUrl, setImageUrl] = useState<string>("");
+	let [imageUrl, setImageUrl] = useState<string>();
 
 	const dispatch = useDispatch();
 	const navigation = useNavigation<any>();
