@@ -19,14 +19,6 @@ export const DATA = [
 		navigationUrl: Utils.screenNames.PROFILE,
 	},
 	{
-		id: 3,
-		title: "Settings",
-		icon: "settings",
-		backgroundColor: colors.white[200],
-		foregroundColor: colors.blue[900],
-		navigationUrl: Utils.screenNames.LOGIN,
-	},
-	{
 		id: 4,
 		title: "Manage Products",
 		icon: "inventory",
