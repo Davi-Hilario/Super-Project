@@ -12,6 +12,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Selectbox from "../components/picker/SelectBox";
 import { Alert, Image, Text, View } from "react-native";
 import { addAccount as addNewAccount } from "../redux/slices/accountsSlice";
+import Toast from "react-native-toast-message";
 
 function addAccount() {
 	let [username, setUsername] = useState<string | undefined>("");
@@ -25,20 +26,38 @@ function addAccount() {
 
 	function handleButtonPress() {
 		async function loadData() {
-			let data = await userModel.createNewAccount({
-				name: username,
-				role: Number(role),
-				email: email,
-				password: password,
-				image: imageUrl,
-			});
+			try {
+				let data = await userModel.createNewAccount({
+					name: username,
+					role: Number(role),
+					email: email,
+					password: password,
+					image: imageUrl,
+				});
 
-			if (!data.error) {
+				if (data.error) {
+					return Toast.show({
+						type: "error",
+						text1: `Error: ${data.error}`,
+						text2: "Failed to create account!",
+					});
+				}
+
 				dispatch(addNewAccount(data));
-				Alert.alert("Success!", "New account created with success!");
+
+				Toast.show({
+					type: "success",
+					text1: "Success",
+					text2: "New account created with success!",
+				});
+
 				navigation.navigate(Utils.screenNames.MANAGE_ACCOUNTS);
-			} else {
-				Alert.alert("Error: " + data.error, "Error in creating the account!");
+			} catch (error: any) {
+				Toast.show({
+					type: "error",
+					text1: "Error",
+					text2: error,
+				});
 			}
 		}
 		loadData();

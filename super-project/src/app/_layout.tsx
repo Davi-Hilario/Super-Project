@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { store } from "../redux/store";
 import { StatusBar } from "expo-status-bar";
 import Loading from "../components/loading/Loading";
+import Toast from "react-native-toast-message";
 
 import {
 	RadioCanadaBig_400Regular,
@@ -23,6 +24,7 @@ function Layout() {
 		<Provider store={store}>
 			<StatusBar style='light' backgroundColor='#33335f' />
 			{fontsLoaded ? <Slot /> : <Loading />}
+			<Toast />
 		</Provider>
 	);
 }

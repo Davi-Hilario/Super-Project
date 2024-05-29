@@ -3,11 +3,11 @@ import { colors } from "../styles/colors";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { ProductData } from "../types/types";
+import { FlatList, View } from "react-native";
 import styles from "./css/manageProducts.style";
 import Button from "../components/button/Button";
 import Navbar from "../components/navbar/NavBar";
 import { ProductModel } from "../model/productModel";
-import { Alert, FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Searchbar from "../components/searchbar/Searchbar";
 import ProductList from "../components/productsList/ProductList";
@@ -17,6 +17,7 @@ import {
 	deleteAllProducts,
 	pressAll,
 } from "../redux/slices/productsSlice";
+import Toast from "react-native-toast-message";
 
 function ManageProducts() {
 	const allProducts = useSelector((state: any) => state.products);
@@ -96,10 +97,11 @@ function ManageProducts() {
 											ProductModel.deleteProduct(product.id as number);
 										});
 
-										Alert.alert(
-											"Success!",
-											`${pressedProductsList.length} products deleted with success!`
-										);
+										Toast.show({
+											type: "success",
+											text1: "Success!",
+											text2: `${pressedProductsList.length} products deleted with success!`,
+										});
 										setPressedProductsList([]);
 
 										let newProducts = allProducts.filter(

@@ -11,6 +11,7 @@ import Button from "../components/button/Button";
 import { ProductModel } from "../model/productModel";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { addProduct as addNewItem } from "../redux/slices/productsSlice";
+import Toast from "react-native-toast-message";
 
 function addProduct() {
 	let [name, setName] = useState<string>("");
@@ -23,19 +24,37 @@ function addProduct() {
 
 	function handleButtonPress() {
 		async function loadData() {
-			let data = await ProductModel.createNewProduct({
-				name: name,
-				description: description,
-				price: Number(price.replace(",", ".")),
-				image: imageUrl,
-			});
+			try {
+				let data = await ProductModel.createNewProduct({
+					name: name,
+					description: description,
+					price: Number(price.replace(",", ".")),
+					image: imageUrl,
+				});
 
-			if (!data.error) {
+				if (data.error) {
+					return Toast.show({
+						type: "error",
+						text1: `Error: ${data.error}`,
+						text2: "Failed to create product!",
+					});
+				}
+
 				dispatch(addNewItem(data));
-				Alert.alert("Success!", "New product created with success!");
+
+				Toast.show({
+					type: "success",
+					text1: "Success",
+					text2: "New product created with success!",
+				});
+
 				navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
-			} else {
-				Alert.alert("Error: " + data.error, "Error in creating the product!");
+			} catch (error: any) {
+				Toast.show({
+					type: "error",
+					text1: "Error",
+					text2: error,
+				});
 			}
 		}
 		loadData();

@@ -1,16 +1,16 @@
 import Utils from "../utils/Utils";
-import { useDispatch } from "react-redux";
 import { colors } from "../styles/colors";
 import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
 import { ProductData } from "../types/types";
 import styles from "./css/editProduct.style";
 import Input from "../components/input/Input";
+import Toast from "react-native-toast-message";
 import Navbar from "../components/navbar/NavBar";
 import Button from "../components/button/Button";
+import { Image, Text, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { ProductModel } from "../model/productModel";
-import { Alert, Image, Text, View } from "react-native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
 function EditProduct() {
@@ -43,12 +43,19 @@ function EditProduct() {
 				image: imageUrl,
 			});
 
-			if (!data.error) {
-				Alert.alert("Success!", "The product was updated!");
-				navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
-			} else {
-				Alert.alert("Error: " + data.error, "Error in updating the product!");
+			if (data.error) {
+				return Toast.show({
+					type: "error",
+					text1: `Error: ${data.error}`,
+					text2: "Error in updating the product!",
+				});
 			}
+			Toast.show({
+				type: "success",
+				text1: "Success!",
+				text2: "The product was updated!",
+			});
+			navigation.navigate(Utils.screenNames.MANAGE_PRODUCTS);
 		}
 		loadData();
 	}

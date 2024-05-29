@@ -3,11 +3,11 @@ import { UserData } from "../types/types";
 import { colors } from "../styles/colors";
 import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
+import { FlatList, View } from "react-native";
 import { userModel } from "../model/userModel";
 import styles from "./css/manageAccounts.style";
 import Navbar from "../components/navbar/NavBar";
 import Button from "../components/button/Button";
-import { Alert, FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Searchbar from "../components/searchbar/Searchbar";
 
@@ -18,6 +18,7 @@ import {
 } from "../redux/slices/accountsSlice";
 
 import UserList from "../components/usersList/UserList";
+import Toast from "react-native-toast-message";
 
 function ManageAccounts() {
 	const allAccounts = useSelector((state: any) => state.accounts);
@@ -97,10 +98,11 @@ function ManageAccounts() {
 											userModel.deleteAccount(product.id as number);
 										});
 
-										Alert.alert(
-											"Success!",
-											`${pressedAccountsList.length} accounts deleted with success!`
-										);
+										Toast.show({
+											type: "success",
+											text1: "Success!",
+											text2: `${pressedAccountsList.length} accounts deleted with success!`,
+										});
 										setpressedAccountsList([]);
 
 										let newProducts = allAccounts.filter(

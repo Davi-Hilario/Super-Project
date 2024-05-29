@@ -8,7 +8,6 @@ enum ScreenNames {
 	MANAGE_ACCOUNTS = "manageAccounts",
 	MANAGE_PRODUCTS = "manageProducts",
 	PROFILE = "profile",
-	REGISTER = "register",
 }
 
 export default class Utils {

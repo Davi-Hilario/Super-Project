@@ -18,6 +18,7 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 function Navbar({ selectedId }: { selectedId: number }) {
 	let [active, setActive] = useState(false);
@@ -143,7 +144,11 @@ function SideBar({
 										navigation.navigate(Utils.screenNames.LOGIN);
 									})
 									.catch((error) => {
-										Alert.alert("Failed to logout: " + error);
+										Toast.show({
+											type: "error",
+											text1: "Failed to Logout!",
+											text2: error,
+										});
 									})
 							}
 						/>

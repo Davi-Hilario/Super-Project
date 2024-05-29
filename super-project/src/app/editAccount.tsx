@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import styles from "./css/editAccount.style";
 import Input from "../components/input/Input";
 import { userModel } from "../model/userModel";
+import Toast from "react-native-toast-message";
 import Navbar from "../components/navbar/NavBar";
 import Button from "../components/button/Button";
+import { Image, Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import Selectbox from "../components/picker/SelectBox";
-import { Alert, Image, Text, View } from "react-native";
 
 function EditAccount() {
 	let [username, setUsername] = useState<string | undefined>("");
@@ -46,15 +47,20 @@ function EditAccount() {
 				image: imageUrl,
 			});
 
-			if (!data.error) {
-				Alert.alert("Success!", "The account was updated!");
-				navigation.navigate(Utils.screenNames.MANAGE_ACCOUNTS);
-			} else {
-				Alert.alert(
-					"Error: " + data.error,
-					"Error in updating the user account!"
-				);
+			if (data.error) {
+				return Toast.show({
+					type: "error",
+					text1: `Error: ${data.error}`,
+					text2: "Error in updating the user account!",
+				});
 			}
+
+			Toast.show({
+				type: "success",
+				text1: "Success!",
+				text2: "The account was updated!",
+			});
+			navigation.navigate(Utils.screenNames.MANAGE_ACCOUNTS);
 		}
 		loadData();
 	}

@@ -3,19 +3,13 @@ import { colors } from "../styles/colors";
 import { UserData } from "../types/types";
 import { useEffect, useState } from "react";
 import { userModel } from "../model/userModel";
+import Toast from "react-native-toast-message";
 import Navbar from "../components/navbar/NavBar";
+import Button from "../components/button/Button";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-	Alert,
-	Image,
-	ScrollView,
-	Text,
-	TouchableOpacity,
-	View,
-} from "react-native";
-import Button from "../components/button/Button";
 
 function Profile() {
 	let [id, setId] = useState<number | undefined>();
@@ -28,14 +22,31 @@ function Profile() {
 
 	useEffect(() => {
 		(async function getData() {
-			let id: number = Number(await AsyncStorage.getItem("id"));
-			let data: UserData = await userModel.findUser(id);
-			setId(id);
-			setName(data.name);
-			setEmail(data.email);
-			setRole(data.role);
-			setPassword(data.password);
-			setImage(data.image);
+			try {
+				let id = Number(await AsyncStorage.getItem("id"));
+				let data = await userModel.findUser(id);
+
+				if (data.error) {
+					return Toast.show({
+						type: "error",
+						text1: `Error: ${data.error}`,
+						text2: "Failed to find user",
+					});
+				}
+
+				setId(id);
+				setName(data.name);
+				setEmail(data.email);
+				setRole(data.role);
+				setPassword(data.password);
+				setImage(data.image);
+			} catch (error: any) {
+				Toast.show({
+					type: "error",
+					text1: "Failed to Load Data",
+					text2: error,
+				});
+			}
 		})();
 	}, []);
 
@@ -52,7 +63,11 @@ function Profile() {
 				setImageChange(true);
 			}
 		} catch (error: any) {
-			Alert.alert("Error!", error);
+			Toast.show({
+				type: "error",
+				text1: "Failed to Launch Image Picker",
+				text2: error,
+			});
 		}
 	}
 
@@ -64,9 +79,17 @@ function Profile() {
 			);
 			AsyncStorage.setItem("image", data.image as string);
 			setImageChange(false);
-			Alert.alert("Success!", "Profile image changed with success!");
+			Toast.show({
+				type: "success",
+				text1: "Success",
+				text2: "Profile image updated!",
+			});
 		} catch (error: any) {
-			Alert.alert("Error!", error);
+			Toast.show({
+				type: "error",
+				text1: "Failed to Change Image",
+				text2: error,
+			});
 		}
 	}
 

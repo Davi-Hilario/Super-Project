@@ -5,10 +5,11 @@ import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { colors } from "@/src/styles/colors";
 import { UserData } from "@/src/types/types";
+import Toast from "react-native-toast-message";
 import { userModel } from "@/src/model/userModel";
 import { handlePressed } from "@/src/redux/slices/accountsSlice";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 function UserList({
 	id,
@@ -36,13 +37,21 @@ function UserList({
 	function handlePress(id: number) {
 		if (!pressed) {
 			if (loggedUser?.id === id) {
-				Alert.alert("Warning!", "You can't update/delete your own account!");
+				Toast.show({
+					type: "info",
+					text1: "Warning!",
+					text2: "You can't update/delete your own account!",
+				});
 			} else {
 				navigation.navigate(Utils.screenNames.EDIT_ACCOUNT, { id: id });
 			}
 		} else {
 			if (loggedUser?.id === id) {
-				Alert.alert("Warning!", "You can't update/delete your own account!");
+				Toast.show({
+					type: "info",
+					text1: "Warning!",
+					text2: "You can't update/delete your own account!",
+				});
 			} else {
 				dispatch(handlePressed({ id: id }));
 			}
@@ -51,7 +60,11 @@ function UserList({
 
 	function handleLongPress() {
 		if (loggedUser?.id === id) {
-			Alert.alert("Warning!", "You can't update/delete your own account!");
+			Toast.show({
+				type: "info",
+				text1: "Warning!",
+				text2: "You can't update/delete your own account!",
+			});
 		} else {
 			dispatch(handlePressed({ id: id }));
 		}
